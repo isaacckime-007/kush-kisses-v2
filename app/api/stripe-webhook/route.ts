@@ -17,12 +17,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import products from '@/lib/products';
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+    apiVersion: '2026-07-29.dahlia',
+  });
+}
+
 
 export const maxDuration = 60;
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2026-07-29.dahlia',
-});
 
 // --- Shopify token cache (in-memory, per serverless instance) ---
 let cachedShopifyToken: { token: string; expiresAt: number } | null = null;
@@ -209,7 +211,7 @@ export async function POST(request: NextRequest) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(rawBody, signature || '', webhookSecret);
+    event = getStripe().webhooks.constructEvent(rawBody, signature || '', webhookSecret);
   } catch (err: any) {
     console.error('Webhook signature verification failed:', err.message);
     return NextResponse.json({ error: 'Invalid signature.' }, { status: 400 });
@@ -222,7 +224,7 @@ export async function POST(request: NextRequest) {
   const session = event.data.object as Stripe.Checkout.Session;
 
   try {
-    const lineItemsResponse = await stripe.checkout.sessions.listLineItems(session.id, {
+    const lineItemsResponse = await getStripe().checkout.sessions.listLineItems(session.id, {
       expand: ['data.price'],
     });
     const lineItems = lineItemsResponse.data;
@@ -234,7 +236,7 @@ export async function POST(request: NextRequest) {
     console.error('Shopify sync failed:', err.message);
 
     try {
-      const lineItemsResponse = await stripe.checkout.sessions.listLineItems(session.id, {
+      const lineItemsResponse = await getStripe().checkout.sessions.listLineItems(session.id, {
         expand: ['data.price'],
       });
       await sendFailureAlert(session, lineItemsResponse.data, err);

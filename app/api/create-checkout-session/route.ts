@@ -8,10 +8,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import products from '@/lib/products';
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+    apiVersion: '2026-07-29.dahlia',
+  });
+}
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2026-07-29.dahlia',
-});
 
 interface CartItem {
   [key: string]: number; // productId or productId:variantId -> quantity
@@ -85,7 +87,7 @@ export async function POST(request: NextRequest) {
 
     const origin = request.headers.get('origin') || 'https://kush-kisses.com';
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: 'payment',
       line_items,
       shipping_address_collection: {

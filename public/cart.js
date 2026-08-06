@@ -171,9 +171,32 @@
     }
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", async function () {
     updateCartBadge();
     const checkoutBtn = document.getElementById("kk-cart-checkout-btn");
     if (checkoutBtn) checkoutBtn.addEventListener("click", handleCheckout);
+
+    try {
+      const res = await fetch("/api/cart-config");
+      const config = await res.json();
+      if (!config.enabled) {
+        disableCartSystem();
+      }
+    } catch (e) {
+      console.error("Could not check cart config, leaving cart enabled by default:", e);
+    }
   });
+
+  function disableCartSystem() {
+    const cartIcon = document.getElementById("kk-cart-icon");
+    if (cartIcon) cartIcon.style.display = "none";
+
+    document.querySelectorAll(".kk-add-to-cart-btn").forEach((btn) => {
+      const link = document.createElement("a");
+      link.className = "kk-product-link";
+      link.href = "https://kush-kisses-2.myshopify.com";
+      link.textContent = "SHOP";
+      btn.replaceWith(link);
+    });
+  }
 })();
