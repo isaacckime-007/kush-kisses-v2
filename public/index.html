@@ -184,6 +184,55 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
   .kk-about-values-grid { grid-template-columns: 1fr; gap: 16px; }
   .kk-footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
 }
+
+.kk-cart-icon-wrap { position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 8px; }
+.kk-cart-icon-wrap svg { width: 20px; height: 20px; stroke: #e8e6e1; }
+.kk-cart-badge {
+  position: absolute; top: -8px; right: -10px;
+  background: #F2A0BC; color: #0a0a0a;
+  font-size: 9px; font-weight: 900;
+  min-width: 16px; height: 16px; border-radius: 50%;
+  display: none; align-items: center; justify-content: center;
+  padding: 0 2px; font-family: Arial, sans-serif;
+}
+.kk-add-to-cart-btn {
+  background: transparent; border: 1px solid #F2A0BC; color: #F2A0BC;
+  font-size: 8px; letter-spacing: 0.14em; font-weight: 900;
+  padding: 6px 12px; cursor: pointer; font-family: 'Arial Black', Arial, sans-serif;
+  text-transform: uppercase; transition: background 0.15s, color 0.15s;
+}
+.kk-add-to-cart-btn:hover { background: #F2A0BC; color: #0a0a0a; }
+#kk-cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 300; display: none; }
+#kk-cart-modal.open #kk-cart-overlay, #kk-cart-modal.open .kk-cart-panel { display: flex; }
+#kk-cart-modal { display: none; }
+#kk-cart-modal.open { display: block; }
+.kk-cart-panel {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 301; background: #111111; border: 1px solid #1e1e1e;
+  width: 92%; max-width: 420px; max-height: 80vh;
+  flex-direction: column; padding: 32px 28px;
+}
+.kk-cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.kk-cart-header h2 { font-size: 14px; letter-spacing: 0.2em; color: #e8e6e1; font-weight: 900; }
+#kk-cart-close { background: none; border: none; color: #e8e6e1; font-size: 22px; cursor: pointer; line-height: 1; }
+#kk-cart-items { flex: 1; overflow-y: auto; margin-bottom: 20px; max-height: 45vh; }
+.kk-cart-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 0.5px solid #1e1e1e; }
+.kk-cart-row-left { display: flex; align-items: center; gap: 12px; }
+.kk-cart-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+.kk-cart-item-name { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; color: #e8e6e1; }
+.kk-cart-row-right { display: flex; align-items: center; gap: 8px; }
+.kk-qty-btn { background: #1e1e1e; border: none; color: #e8e6e1; width: 20px; height: 20px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+.kk-qty-value { font-size: 11px; color: #e8e6e1; min-width: 16px; text-align: center; font-family: Arial, sans-serif; }
+.kk-cart-item-price { font-size: 10px; color: #999; font-family: Arial, sans-serif; min-width: 44px; text-align: right; }
+.kk-remove-btn { background: none; border: none; color: #666; font-size: 16px; cursor: pointer; margin-left: 4px; }
+.kk-remove-btn:hover { color: #F2A0BC; }
+#kk-cart-empty { display: none; color: #666; font-size: 11px; font-family: Arial, sans-serif; text-align: center; padding: 24px 0; }
+.kk-cart-footer { border-top: 0.5px solid #1e1e1e; padding-top: 20px; }
+.kk-cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.kk-cart-total-label { font-size: 10px; letter-spacing: 0.16em; color: #999; font-family: Arial, sans-serif; }
+#kk-cart-total { font-size: 16px; font-weight: 900; color: #e8e6e1; }
+#kk-cart-checkout-btn { width: 100%; background: #F2A0BC; color: #0a0a0a; border: none; font-size: 9px; letter-spacing: 0.2em; font-weight: 900; padding: 16px; cursor: pointer; font-family: 'Arial Black', Arial, sans-serif; }
+#kk-cart-checkout-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -211,6 +260,14 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
     <li><a href="#contact-page">CONTACT</a></li>
     <li><a href="https://kush-kisses-2.myshopify.com" class="pink">SHOP NOW</a></li>
   </ul>
+  <div class="kk-cart-icon-wrap" id="kk-cart-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <span class="kk-cart-badge" id="kk-cart-badge">0</span>
+  </div>
   <button class="kk-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
     <span></span><span></span><span></span>
   </button>
@@ -266,7 +323,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
           </div>
           <div class="kk-product-right">
             <span class="kk-product-price">$15.00</span>
-            <a class="kk-product-link" href="https://kush-kisses-2.myshopify.com">SHOP</a>
+            <button class="kk-add-to-cart-btn" data-id="baby-peach">ADD</button>
           </div>
         </div>
         <div class="kk-product-row">
@@ -276,7 +333,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
           </div>
           <div class="kk-product-right">
             <span class="kk-product-price">$15.00</span>
-            <a class="kk-product-link" href="https://kush-kisses-2.myshopify.com">SHOP</a>
+            <button class="kk-add-to-cart-btn" data-id="baby-pink">ADD</button>
           </div>
         </div>
         <div class="kk-product-row">
@@ -286,7 +343,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
           </div>
           <div class="kk-product-right">
             <span class="kk-product-price">$15.00</span>
-            <a class="kk-product-link" href="https://kush-kisses-2.myshopify.com">SHOP</a>
+            <button class="kk-add-to-cart-btn" data-id="baby-brown">ADD</button>
           </div>
         </div>
         <div class="kk-product-row">
@@ -296,7 +353,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
           </div>
           <div class="kk-product-right">
             <span class="kk-product-price">$15.00</span>
-            <a class="kk-product-link" href="https://kush-kisses-2.myshopify.com">SHOP</a>
+            <button class="kk-add-to-cart-btn" data-id="brown">ADD</button>
           </div>
         </div>
         <div class="kk-product-row">
@@ -306,7 +363,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
           </div>
           <div class="kk-product-right">
             <span class="kk-product-price">$75.00</span>
-            <a class="kk-product-link" href="https://kush-kisses-2.myshopify.com">SHOP</a>
+            <button class="kk-add-to-cart-btn" data-id="kush-kisses-set">ADD</button>
           </div>
         </div>
         <div class="kk-products-cta">
@@ -483,5 +540,25 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
 </footer>
 
 </div>
+
+<div id="kk-cart-modal">
+  <div id="kk-cart-overlay"></div>
+  <div class="kk-cart-panel">
+    <div class="kk-cart-header">
+      <h2>YOUR CART</h2>
+      <button id="kk-cart-close">&times;</button>
+    </div>
+    <div id="kk-cart-items"></div>
+    <p id="kk-cart-empty">Your cart is empty.</p>
+    <div class="kk-cart-footer">
+      <div class="kk-cart-total-row">
+        <span class="kk-cart-total-label">TOTAL</span>
+        <span id="kk-cart-total">$0.00</span>
+      </div>
+      <button id="kk-cart-checkout-btn" disabled>CHECKOUT</button>
+    </div>
+  </div>
+</div>
+<script src="/cart.js"></script>
 </body>
 </html>
