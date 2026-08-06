@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shop | Kush Kisses</title>
+<meta name="description" content="Shop the full Kush Kisses collection - moisturizing, plumping lip gloss in every shade." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://kush-kisses.com/shop" />
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
+.kk-wrap { background: #0a0a0a; max-width: 1200px; margin: 0 auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.kk-nav { background: #0a0a0a; border-bottom: 1px solid #1e1e1e; padding: 16px 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.kk-logo-area { display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; }
+.kk-logo-name { font-size: 18px; font-weight: 900; letter-spacing: 0.2em; color: #F2A0BC; line-height: 1; }
+.kk-logo-tag { font-size: 7px; letter-spacing: 0.1em; color: #555; font-weight: 400; font-family: Arial, sans-serif; }
+.kk-nav-links { display: flex; gap: 32px; list-style: none; }
+.kk-nav-links a { font-size: 10px; letter-spacing: 0.16em; color: #e8e6e1; text-decoration: none; font-weight: 900; }
+.kk-nav-links a.pink { color: #F2A0BC; }
+.kk-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.kk-hamburger span { display: block; width: 22px; height: 2px; background: #e8e6e1; }
+.kk-mobile-menu { display: none; position: fixed; inset: 0; background: #0a0a0a; z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+.kk-mobile-menu.open { display: flex; }
+.kk-mobile-menu a { font-size: 14px; letter-spacing: 0.2em; color: #e8e6e1; text-decoration: none; font-weight: 900; }
+.kk-mobile-menu a.pink { color: #F2A0BC; }
+.kk-mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 24px; cursor: pointer; color: #e8e6e1; }
+
+.kk-page-title { background: #111111; padding: 40px 60px; text-align: center; }
+.kk-page-title p { font-size: 9px; letter-spacing: 0.24em; color: #F2A0BC; font-weight: 900; margin-bottom: 8px; }
+.kk-page-title h1 { font-size: 36px; font-weight: 900; letter-spacing: 0.05em; color: #e8e6e1; }
+
+.kk-shop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #1e1e1e; padding: 1px; }
+.kk-shop-card { background: #0a0a0a; padding: 20px; display: flex; flex-direction: column; }
+.kk-shop-card-img-wrap { width: 100%; aspect-ratio: 1; overflow: hidden; background: #141414; margin-bottom: 16px; }
+.kk-shop-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.kk-shop-card-name { font-size: 11px; font-weight: 900; letter-spacing: 0.1em; color: #e8e6e1; margin-bottom: 8px; }
+.kk-shop-card-price { font-size: 12px; color: #999; font-family: Arial, sans-serif; margin-bottom: 14px; }
+.kk-shop-card-select {
+  width: 100%; background: #1e1e1e; border: 0.5px solid #333; color: #e8e6e1;
+  font-size: 10px; padding: 8px 10px; margin-bottom: 10px; font-family: Arial, sans-serif;
+}
+.kk-add-to-cart-btn {
+  background: transparent; border: 1px solid #F2A0BC; color: #F2A0BC;
+  font-size: 9px; letter-spacing: 0.14em; font-weight: 900;
+  padding: 10px 12px; cursor: pointer; font-family: 'Arial Black', Arial, sans-serif;
+  text-transform: uppercase; transition: background 0.15s, color 0.15s;
+  margin-top: auto;
+}
+.kk-add-to-cart-btn:hover { background: #F2A0BC; color: #0a0a0a; }
+
+.kk-cart-icon-wrap { position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 8px; }
+.kk-cart-icon-wrap svg { width: 20px; height: 20px; stroke: #e8e6e1; }
+.kk-cart-badge {
+  position: absolute; top: -8px; right: -10px;
+  background: #F2A0BC; color: #0a0a0a;
+  font-size: 9px; font-weight: 900;
+  min-width: 16px; height: 16px; border-radius: 50%;
+  display: none; align-items: center; justify-content: center;
+  padding: 0 2px; font-family: Arial, sans-serif;
+}
+#kk-cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 300; display: none; }
+#kk-cart-modal.open #kk-cart-overlay, #kk-cart-modal.open .kk-cart-panel { display: flex; }
+#kk-cart-modal { display: none; }
+#kk-cart-modal.open { display: block; }
+.kk-cart-panel {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 301; background: #111111; border: 1px solid #1e1e1e;
+  width: 92%; max-width: 420px; max-height: 80vh;
+  flex-direction: column; padding: 32px 28px;
+}
+.kk-cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.kk-cart-header h2 { font-size: 14px; letter-spacing: 0.2em; color: #e8e6e1; font-weight: 900; }
+#kk-cart-close { background: none; border: none; color: #e8e6e1; font-size: 22px; cursor: pointer; line-height: 1; }
+#kk-cart-items { flex: 1; overflow-y: auto; margin-bottom: 20px; max-height: 45vh; }
+.kk-cart-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 0.5px solid #1e1e1e; }
+.kk-cart-row-left { display: flex; align-items: center; gap: 12px; }
+.kk-cart-item-name { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; color: #e8e6e1; }
+.kk-cart-row-right { display: flex; align-items: center; gap: 8px; }
+.kk-qty-btn { background: #1e1e1e; border: none; color: #e8e6e1; width: 20px; height: 20px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+.kk-qty-value { font-size: 11px; color: #e8e6e1; min-width: 16px; text-align: center; font-family: Arial, sans-serif; }
+.kk-cart-item-price { font-size: 10px; color: #999; font-family: Arial, sans-serif; min-width: 44px; text-align: right; }
+.kk-remove-btn { background: none; border: none; color: #666; font-size: 16px; cursor: pointer; margin-left: 4px; }
+.kk-remove-btn:hover { color: #F2A0BC; }
+#kk-cart-empty { display: none; color: #666; font-size: 11px; font-family: Arial, sans-serif; text-align: center; padding: 24px 0; }
+.kk-cart-footer { border-top: 0.5px solid #1e1e1e; padding-top: 20px; }
+.kk-cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.kk-cart-total-label { font-size: 10px; letter-spacing: 0.16em; color: #999; font-family: Arial, sans-serif; }
+#kk-cart-total { font-size: 16px; font-weight: 900; color: #e8e6e1; }
+#kk-cart-checkout-btn { width: 100%; background: #F2A0BC; color: #0a0a0a; border: none; font-size: 9px; letter-spacing: 0.2em; font-weight: 900; padding: 16px; cursor: pointer; font-family: 'Arial Black', Arial, sans-serif; }
+#kk-cart-checkout-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+.kk-footer { background: #000000; padding: 44px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.kk-footer-logo { font-size: 11px; font-weight: 900; letter-spacing: 0.2em; color: #F2A0BC; }
+.kk-footer-tag { font-size: 7px; letter-spacing: 0.08em; color: #333; font-family: Arial, sans-serif; margin-top: 4px; }
+.kk-footer-links { display: flex; gap: 24px; list-style: none; align-items: center; flex-wrap: wrap; }
+.kk-footer-links a { font-size: 9px; letter-spacing: 0.12em; color: #aaa; text-decoration: none; font-family: Arial, sans-serif; }
+.kk-footer-copy { width: 100%; text-align: center; font-size: 8px; color: #333; font-family: Arial, sans-serif; letter-spacing: 0.08em; padding-top: 20px; border-top: 0.5px solid #1a1a1a; margin-top: 8px; }
+
+@media (max-width: 1024px) {
+  .kk-shop-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .kk-nav { padding: 14px 24px; }
+  .kk-nav-links { display: none; }
+  .kk-hamburger { display: flex; }
+  .kk-page-title { padding: 28px 24px; }
+  .kk-page-title h1 { font-size: 24px; }
+  .kk-shop-grid { grid-template-columns: repeat(2, 1fr); }
+  .kk-footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="kk-wrap">
+
+<div class="kk-mobile-menu" id="mobileMenu">
+  <button class="kk-mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">x</button>
+  <a href="/index.html#home" onclick="document.getElementById('mobileMenu').classList.remove('open')">HOME</a>
+  <a href="/index.html#about-page" onclick="document.getElementById('mobileMenu').classList.remove('open')">ABOUT</a>
+  <a href="/shop.html" class="pink">SHOP</a>
+  <a href="/index.html#contact-page" onclick="document.getElementById('mobileMenu').classList.remove('open')">CONTACT</a>
+</div>
+
+<nav class="kk-nav">
+  <ul class="kk-nav-links">
+    <li><a href="/index.html#about-page">ABOUT</a></li>
+    <li><a href="/shop.html" class="pink">SHOP</a></li>
+  </ul>
+  <a class="kk-logo-area" href="/index.html#home">
+    <div class="kk-logo-name">KUSH KISSES</div>
+    <div class="kk-logo-tag">SORRY, I GOT LIPGLOSS ON THE BLUNT.</div>
+  </a>
+  <ul class="kk-nav-links">
+    <li><a href="/index.html#contact-page">CONTACT</a></li>
+    <li><div class="kk-cart-icon-wrap" id="kk-cart-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="kk-cart-badge" id="kk-cart-badge">0</span>
+    </div></li>
+  </ul>
+  <button class="kk-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="kk-page-title">
+  <p>THE FULL COLLECTION</p>
+  <h1>SHOP KUSH KISSES</h1>
+</div>
+
+<div class="kk-shop-grid">
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/9AA757A1-0E72-4EFA-86BE-5421D333FC6F.png" alt="Baby Brown lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">BABY BROWN</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="baby-brown">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/0911D2B2-CC29-4F68-9CC0-9A74A9DD85DE.png" alt="Baby Peach lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">BABY PEACH</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="baby-peach">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/7CEE5C50-BBB3-463F-AE22-04CC7F3E5D4B.png" alt="Baby Pink lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">BABY PINK</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="baby-pink">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/C439693B-8491-47C6-A615-4578B190E6F2.png" alt="Brown lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">BROWN</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="brown">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/98FD1A10-2F1F-45D8-9F56-751FF9806D29.png" alt="Bubble Gum lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">BUBBLE GUM</p>
+    <p class="kk-shop-card-price">$20.00</p>
+    <button class="kk-add-to-cart-btn" data-id="bubble-gum">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/D6296CD3-6B85-479F-B075-358E7DCA6AE2.png" alt="Chocolate lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">CHOCOLATE</p>
+    <p class="kk-shop-card-price">$7.50</p>
+    <button class="kk-add-to-cart-btn" data-id="chocolate">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/CC64B134-8EA9-47A9-8B15-6BC4AA6E3475.png" alt="Chocolate Cookie lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">CHOCOLATE COOKIE</p>
+    <p class="kk-shop-card-price">$20.00</p>
+    <button class="kk-add-to-cart-btn" data-id="chocolate-cookie">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/5F7F8994-6AD9-4640-94AF-4C433C5E8949.png" alt="Clear lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">CLEAR</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="clear">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/A1248794-2DBB-46FD-9D07-DDA723ED43F1.png" alt="Clear lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">CLEAR</p>
+    <p class="kk-shop-card-price">$7.50</p>
+    <button class="kk-add-to-cart-btn" data-id="clear-2">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/CA61E34A-CC15-4D65-885F-C9908B4E1012.png" alt="Coconut lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">COCONUT</p>
+    <p class="kk-shop-card-price">$7.50</p>
+    <button class="kk-add-to-cart-btn" data-id="coconut">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/6990C9AA-AA9D-4DA2-9958-7E1D6198F586.png" alt="Kush Kisses compact mirror" loading="lazy" /></div>
+    <p class="kk-shop-card-name">COMPACT MIRROR</p>
+    <p class="kk-shop-card-price">$6.99</p>
+    <button class="kk-add-to-cart-btn" data-id="compact-mirror">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/90791E82-9D7F-4B01-8BF6-7F08BF15417C.png" alt="Kush Kisses hand held mirror" loading="lazy" /></div>
+    <p class="kk-shop-card-name">HAND HELD MIRROR</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="hand-held-mirror">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/891BC58B-1267-4CD0-BF43-E6F74781E297.png" alt="Kush Kisses full set" loading="lazy" /></div>
+    <p class="kk-shop-card-name">KUSH KISSES SET</p>
+    <p class="kk-shop-card-price">$75.00</p>
+    <select class="kk-shop-card-select" data-variant-for="kush-kisses-set">
+      <option value="xs">Size XS</option>
+      <option value="s">Size S</option>
+      <option value="m">Size M</option>
+      <option value="l">Size L</option>
+      <option value="xl">Size XL</option>
+    </select>
+    <button class="kk-add-to-cart-btn" data-id="kush-kisses-set">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/09E3D970-4AB8-4903-8797-48E93BA354A8.png" alt="Latte lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">LATTE</p>
+    <p class="kk-shop-card-price">$20.00</p>
+    <button class="kk-add-to-cart-btn" data-id="latte">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/94986CCC-387C-4875-B3F0-3C1D5D794801.png" alt="Mercury lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">MERCURY</p>
+    <p class="kk-shop-card-price">$7.50</p>
+    <button class="kk-add-to-cart-btn" data-id="mercury">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/EB44D5F0-0F3D-4BF2-93AB-BA5B3D014E0F.png" alt="Red Sorceress lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">RED SORCERESS</p>
+    <p class="kk-shop-card-price">$20.00</p>
+    <button class="kk-add-to-cart-btn" data-id="red-sorceress">ADD TO CART</button>
+  </div>
+
+  <div class="kk-shop-card">
+    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/E71D25B2-B818-4B32-92A6-184E93E9F626.png" alt="Sheer Pink lip gloss" loading="lazy" /></div>
+    <p class="kk-shop-card-name">SHEER PINK</p>
+    <p class="kk-shop-card-price">$15.00</p>
+    <button class="kk-add-to-cart-btn" data-id="sheer-pink">ADD TO CART</button>
+  </div>
+
+</div>
+
+<div id="kk-cart-modal">
+  <div id="kk-cart-overlay"></div>
+  <div class="kk-cart-panel">
+    <div class="kk-cart-header">
+      <h2>YOUR CART</h2>
+      <button id="kk-cart-close">&times;</button>
+    </div>
+    <div id="kk-cart-items"></div>
+    <p id="kk-cart-empty">Your cart is empty.</p>
+    <div class="kk-cart-footer">
+      <div class="kk-cart-total-row">
+        <span class="kk-cart-total-label">TOTAL</span>
+        <span id="kk-cart-total">$0.00</span>
+      </div>
+      <button id="kk-cart-checkout-btn" disabled>CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+<footer class="kk-footer">
+  <div>
+    <div class="kk-footer-logo">KUSH KISSES</div>
+    <div class="kk-footer-tag">SORRY, I GOT LIPGLOSS ON THE BLUNT.</div>
+  </div>
+  <ul class="kk-footer-links">
+    <li><a href="/index.html#home">HOME</a></li>
+    <li><a href="/index.html#about-page">ABOUT</a></li>
+    <li><a href="/shop.html">SHOP</a></li>
+    <li><a href="/index.html#contact-page">CONTACT</a></li>
+  </ul>
+  <div class="kk-footer-copy">2025 KUSH KISSES. ALL RIGHTS RESERVED. MOISTURIZING LIP GLOSS FOR WOMEN.</div>
+</footer>
+
+</div>
+<script src="/cart.js"></script>
+</body>
+</html>

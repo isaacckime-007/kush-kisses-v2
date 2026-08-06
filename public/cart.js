@@ -1,10 +1,32 @@
 (function () {
   const PRODUCTS = [
-    { id: "baby-peach", name: "BABY PEACH", price: 15.00, color: "#FDDAB5" },
-    { id: "baby-pink", name: "BABY PINK", price: 15.00, color: "#F2A0BC" },
-    { id: "baby-brown", name: "BABY BROWN", price: 15.00, color: "#8B5C42" },
-    { id: "brown", name: "BROWN", price: 15.00, color: "#5C3A28" },
-    { id: "kush-kisses-set", name: "KUSH KISSES SET", price: 75.00, color: "#e8e6e1" },
+    { id: "baby-brown", name: "BABY BROWN", variants: [{ id: "default", label: null, price: 15.00 }] },
+    { id: "baby-peach", name: "BABY PEACH", variants: [{ id: "default", label: null, price: 15.00 }] },
+    { id: "baby-pink", name: "BABY PINK", variants: [{ id: "default", label: null, price: 15.00 }] },
+    { id: "brown", name: "BROWN", variants: [{ id: "default", label: null, price: 15.00 }] },
+    { id: "bubble-gum", name: "BUBBLE GUM", variants: [{ id: "default", label: null, price: 20.00 }] },
+    { id: "chocolate", name: "CHOCOLATE", variants: [{ id: "default", label: null, price: 7.50 }] },
+    { id: "chocolate-cookie", name: "CHOCOLATE COOKIE", variants: [{ id: "default", label: null, price: 20.00 }] },
+    { id: "clear", name: "CLEAR", variants: [{ id: "default", label: null, price: 15.00 }] },
+    { id: "clear-2", name: "CLEAR", variants: [{ id: "default", label: null, price: 7.50 }] },
+    { id: "coconut", name: "COCONUT", variants: [{ id: "default", label: null, price: 7.50 }] },
+    { id: "compact-mirror", name: "COMPACT MIRROR", variants: [{ id: "default", label: null, price: 6.99 }] },
+    { id: "hand-held-mirror", name: "KUSH KISSES HAND HELD MIRROR", variants: [{ id: "default", label: null, price: 15.00 }] },
+    {
+      id: "kush-kisses-set",
+      name: "KUSH KISSES SET",
+      variants: [
+        { id: "xs", label: "XS", price: 75.00 },
+        { id: "s", label: "S", price: 75.00 },
+        { id: "m", label: "M", price: 75.00 },
+        { id: "l", label: "L", price: 75.00 },
+        { id: "xl", label: "XL", price: 75.00 },
+      ],
+    },
+    { id: "latte", name: "LATTE", variants: [{ id: "default", label: null, price: 20.00 }] },
+    { id: "mercury", name: "MERCURY", variants: [{ id: "default", label: null, price: 7.50 }] },
+    { id: "red-sorceress", name: "RED SORCERESS", variants: [{ id: "default", label: null, price: 20.00 }] },
+    { id: "sheer-pink", name: "SHEER PINK", variants: [{ id: "default", label: null, price: 15.00 }] },
   ];
 
   const CART_STORAGE_KEY = "kk_cart";
@@ -22,28 +44,39 @@
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
   }
 
-  let cart = loadCart();
+  let cart = loadCart(); // { cartKey: quantity }  where cartKey = "productId" or "productId:variantId"
 
-  function addToCart(productId) {
-    cart[productId] = (cart[productId] || 0) + 1;
+  function getProductAndVariant(cartKey) {
+    const [productId, variantId] = cartKey.split(":");
+    const product = PRODUCTS.find((p) => p.id === productId);
+    if (!product) return null;
+    const variant = variantId
+      ? product.variants.find((v) => v.id === variantId)
+      : product.variants[0];
+    if (!variant) return null;
+    return { product, variant };
+  }
+
+  function addToCart(cartKey) {
+    cart[cartKey] = (cart[cartKey] || 0) + 1;
     saveCart(cart);
     renderCart();
     updateCartBadge();
   }
 
-  function updateQuantity(productId, delta) {
-    if (!cart[productId]) return;
-    cart[productId] += delta;
-    if (cart[productId] <= 0) {
-      delete cart[productId];
+  function updateQuantity(cartKey, delta) {
+    if (!cart[cartKey]) return;
+    cart[cartKey] += delta;
+    if (cart[cartKey] <= 0) {
+      delete cart[cartKey];
     }
     saveCart(cart);
     renderCart();
     updateCartBadge();
   }
 
-  function removeFromCart(productId) {
-    delete cart[productId];
+  function removeFromCart(cartKey) {
+    delete cart[cartKey];
     saveCart(cart);
     renderCart();
     updateCartBadge();
@@ -54,9 +87,9 @@
   }
 
   function getCartTotal() {
-    return Object.entries(cart).reduce((sum, [id, qty]) => {
-      const product = PRODUCTS.find((p) => p.id === id);
-      return product ? sum + product.price * qty : sum;
+    return Object.entries(cart).reduce((sum, [cartKey, qty]) => {
+      const found = getProductAndVariant(cartKey);
+      return found ? sum + found.variant.price * qty : sum;
     }, 0);
   }
 
@@ -85,23 +118,24 @@
       emptyMsg.style.display = "none";
       checkoutBtn.disabled = false;
 
-      entries.forEach(([id, qty]) => {
-        const product = PRODUCTS.find((p) => p.id === id);
-        if (!product) return;
+      entries.forEach(([cartKey, qty]) => {
+        const found = getProductAndVariant(cartKey);
+        if (!found) return;
+        const { product, variant } = found;
+        const displayName = variant.label ? `${product.name} - ${variant.label}` : product.name;
 
         const row = document.createElement("div");
         row.className = "kk-cart-row";
         row.innerHTML = `
           <div class="kk-cart-row-left">
-            <div class="kk-cart-dot" style="background:${product.color};"></div>
-            <span class="kk-cart-item-name">${product.name}</span>
+            <span class="kk-cart-item-name">${displayName}</span>
           </div>
           <div class="kk-cart-row-right">
-            <button class="kk-qty-btn" data-action="decrease" data-id="${id}">-</button>
+            <button class="kk-qty-btn" data-action="decrease" data-id="${cartKey}">-</button>
             <span class="kk-qty-value">${qty}</span>
-            <button class="kk-qty-btn" data-action="increase" data-id="${id}">+</button>
-            <span class="kk-cart-item-price">$${(product.price * qty).toFixed(2)}</span>
-            <button class="kk-remove-btn" data-action="remove" data-id="${id}">x</button>
+            <button class="kk-qty-btn" data-action="increase" data-id="${cartKey}">+</button>
+            <span class="kk-cart-item-price">$${(variant.price * qty).toFixed(2)}</span>
+            <button class="kk-remove-btn" data-action="remove" data-id="${cartKey}">x</button>
           </div>
         `;
         container.appendChild(row);
@@ -160,8 +194,10 @@
       removeFromCart(id);
     }
     if (target.matches(".kk-add-to-cart-btn")) {
-      const id = target.getAttribute("data-id");
-      addToCart(id);
+      const productId = target.getAttribute("data-id");
+      const selectEl = document.querySelector(`select[data-variant-for="${productId}"]`);
+      const cartKey = selectEl ? `${productId}:${selectEl.value}` : productId;
+      addToCart(cartKey);
     }
     if (target.matches("#kk-cart-icon, #kk-cart-icon *")) {
       openCart();
