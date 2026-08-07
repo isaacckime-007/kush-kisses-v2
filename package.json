@@ -2,7 +2,7 @@
   "name": "kush-kisses-—-option-a",
   "version": "1.0.0",
   "scripts": {
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "dev": "next dev"
   },
