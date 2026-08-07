@@ -1,0 +1,149 @@
+[
+  {
+    "productId": "baby-brown",
+    "variantId": "default",
+    "shopifyVariantId": "53133366788459",
+    "stripeProductId": "prod_V1gu4kxJE91yaD",
+    "stripePriceId": "price_1U1dWELYqkehBQURUwwqmI9T"
+  },
+  {
+    "productId": "baby-peach",
+    "variantId": "default",
+    "shopifyVariantId": "53133515653483",
+    "stripeProductId": "prod_V1guhP1d1MJ8pf",
+    "stripePriceId": "price_1U1dWELYqkehBQURNDe5ccOb"
+  },
+  {
+    "productId": "baby-pink",
+    "variantId": "default",
+    "shopifyVariantId": "53133616841067",
+    "stripeProductId": "prod_V1gu5FNxy9OpCd",
+    "stripePriceId": "price_1U1dWELYqkehBQURC4r2slwQ"
+  },
+  {
+    "productId": "brown",
+    "variantId": "default",
+    "shopifyVariantId": "53133627425131",
+    "stripeProductId": "prod_V1gu0PaThZv0pO",
+    "stripePriceId": "price_1U1dWFLYqkehBQURRCko5jRO"
+  },
+  {
+    "productId": "bubble-gum",
+    "variantId": "default",
+    "shopifyVariantId": "53194326704491",
+    "stripeProductId": "prod_V1gusLMk6EBiFk",
+    "stripePriceId": "price_1U1dWFLYqkehBQURHaptDNON"
+  },
+  {
+    "productId": "chocolate",
+    "variantId": "default",
+    "shopifyVariantId": "53194353672555",
+    "stripeProductId": "prod_V1guSYD5Ka7Aql",
+    "stripePriceId": "price_1U1dWFLYqkehBQURaCDEmaIa"
+  },
+  {
+    "productId": "chocolate-cookie",
+    "variantId": "default",
+    "shopifyVariantId": "53194365600107",
+    "stripeProductId": "prod_V1guRkWPeZOzV3",
+    "stripePriceId": "price_1U1dWGLYqkehBQURfXDvgmLM"
+  },
+  {
+    "productId": "clear",
+    "variantId": "default",
+    "shopifyVariantId": "53133640958315",
+    "stripeProductId": "prod_V1guWeFHLq3V6P",
+    "stripePriceId": "price_1U1dWGLYqkehBQURmnHInyQ3"
+  },
+  {
+    "productId": "clear-2",
+    "variantId": "default",
+    "shopifyVariantId": "53194340303211",
+    "stripeProductId": "prod_V1guljLX5gQlop",
+    "stripePriceId": "price_1U1dWGLYqkehBQURsYEWmPZ4"
+  },
+  {
+    "productId": "coconut",
+    "variantId": "default",
+    "shopifyVariantId": "53194345185643",
+    "stripeProductId": "prod_V1guhSJ1gBZQEN",
+    "stripePriceId": "price_1U1dWHLYqkehBQURp3rlzUO6"
+  },
+  {
+    "productId": "compact-mirror",
+    "variantId": "default",
+    "shopifyVariantId": "53133657440619",
+    "stripeProductId": "prod_V1gubqriWhh9O1",
+    "stripePriceId": "price_1U1dWHLYqkehBQURGuaDaGTw"
+  },
+  {
+    "productId": "hand-held-mirror",
+    "variantId": "default",
+    "shopifyVariantId": "53133696598379",
+    "stripeProductId": "prod_V1guJU38nS7FgG",
+    "stripePriceId": "price_1U1dWHLYqkehBQURWxExMewU"
+  },
+  {
+    "productId": "kush-kisses-set",
+    "variantId": "xs",
+    "shopifyVariantId": "53213477405035",
+    "stripeProductId": "prod_V1gubYXXNnTuiE",
+    "stripePriceId": "price_1U1dWHLYqkehBQURG9vwVaJU"
+  },
+  {
+    "productId": "kush-kisses-set",
+    "variantId": "s",
+    "shopifyVariantId": "53213477437803",
+    "stripeProductId": "prod_V1gubYXXNnTuiE",
+    "stripePriceId": "price_1U1dWILYqkehBQURBmRauRih"
+  },
+  {
+    "productId": "kush-kisses-set",
+    "variantId": "m",
+    "shopifyVariantId": "53213477470571",
+    "stripeProductId": "prod_V1gubYXXNnTuiE",
+    "stripePriceId": "price_1U1dWILYqkehBQURHLngqIO8"
+  },
+  {
+    "productId": "kush-kisses-set",
+    "variantId": "l",
+    "shopifyVariantId": "53213477503339",
+    "stripeProductId": "prod_V1gubYXXNnTuiE",
+    "stripePriceId": "price_1U1dWILYqkehBQUREcKQ71iD"
+  },
+  {
+    "productId": "kush-kisses-set",
+    "variantId": "xl",
+    "shopifyVariantId": "53213477536107",
+    "stripeProductId": "prod_V1gubYXXNnTuiE",
+    "stripePriceId": "price_1U1dWILYqkehBQURg4Yv3UIO"
+  },
+  {
+    "productId": "latte",
+    "variantId": "default",
+    "shopifyVariantId": "53194322575723",
+    "stripeProductId": "prod_V1gubVv2RlrdtG",
+    "stripePriceId": "price_1U1dWILYqkehBQURGccP9Nhx"
+  },
+  {
+    "productId": "mercury",
+    "variantId": "default",
+    "shopifyVariantId": "53194338042219",
+    "stripeProductId": "prod_V1guvJ9CC7LGaz",
+    "stripePriceId": "price_1U1dWJLYqkehBQUR0G7Ts9p8"
+  },
+  {
+    "productId": "red-sorceress",
+    "variantId": "default",
+    "shopifyVariantId": "53194320216427",
+    "stripeProductId": "prod_V1guQGh7nlbq3p",
+    "stripePriceId": "price_1U1dWJLYqkehBQURLtbma9Ip"
+  },
+  {
+    "productId": "sheer-pink",
+    "variantId": "default",
+    "shopifyVariantId": "53133649183083",
+    "stripeProductId": "prod_V1gupfnJ5dTTbB",
+    "stripePriceId": "price_1U1dWJLYqkehBQURYOHZPnMC"
+  }
+]

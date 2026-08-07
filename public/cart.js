@@ -8,9 +8,9 @@
     { id: "chocolate", name: "CHOCOLATE", variants: [{ id: "default", label: null, price: 7.50 }] },
     { id: "chocolate-cookie", name: "CHOCOLATE COOKIE", variants: [{ id: "default", label: null, price: 20.00 }] },
     { id: "clear", name: "CLEAR", variants: [{ id: "default", label: null, price: 15.00 }] },
-    { id: "clear-2", name: "CLEAR", variants: [{ id: "default", label: null, price: 7.50 }] },
+    { id: "clear-2", name: "CLEAR MINI", variants: [{ id: "default", label: null, price: 7.50 }] },
     { id: "coconut", name: "COCONUT", variants: [{ id: "default", label: null, price: 7.50 }] },
-    { id: "compact-mirror", name: "COMPACT MIRROR", variants: [{ id: "default", label: null, price: 6.99 }] },
+    { id: "compact-mirror", name: "KUSH KISSES COMPACT MIRROR", variants: [{ id: "default", label: null, price: 6.99 }] },
     { id: "hand-held-mirror", name: "KUSH KISSES HAND HELD MIRROR", variants: [{ id: "default", label: null, price: 15.00 }] },
     {
       id: "kush-kisses-set",

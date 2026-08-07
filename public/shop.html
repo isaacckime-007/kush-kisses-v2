@@ -50,6 +50,8 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
   margin-top: auto;
 }
 .kk-add-to-cart-btn:hover { background: #F2A0BC; color: #0a0a0a; }
+.kk-add-to-cart-btn:disabled { border-color: #333; color: #555; cursor: not-allowed; }
+.kk-add-to-cart-btn:disabled:hover { background: transparent; color: #555; }
 
 .kk-cart-icon-wrap { position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 8px; }
 .kk-cart-icon-wrap svg { width: 20px; height: 20px; stroke: #e8e6e1; }
@@ -214,7 +216,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
 
   <div class="kk-shop-card">
     <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/A1248794-2DBB-46FD-9D07-DDA723ED43F1.png" alt="Clear lip gloss" loading="lazy" /></div>
-    <p class="kk-shop-card-name">CLEAR</p>
+    <p class="kk-shop-card-name">CLEAR MINI</p>
     <p class="kk-shop-card-price">$7.50</p>
     <button class="kk-add-to-cart-btn" data-id="clear-2">ADD TO CART</button>
   </div>
@@ -228,9 +230,9 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
 
   <div class="kk-shop-card">
     <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/6990C9AA-AA9D-4DA2-9958-7E1D6198F586.png" alt="Kush Kisses compact mirror" loading="lazy" /></div>
-    <p class="kk-shop-card-name">COMPACT MIRROR</p>
+    <p class="kk-shop-card-name">KUSH KISSES COMPACT MIRROR</p>
     <p class="kk-shop-card-price">$6.99</p>
-    <button class="kk-add-to-cart-btn" data-id="compact-mirror">ADD TO CART</button>
+    <button class="kk-add-to-cart-btn" data-id="compact-mirror" disabled>OUT OF STOCK</button>
   </div>
 
   <div class="kk-shop-card">
