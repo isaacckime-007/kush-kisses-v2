@@ -36,6 +36,7 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
 .kk-shop-card { background: #0a0a0a; padding: 20px; display: flex; flex-direction: column; }
 .kk-shop-card-img-wrap { width: 100%; aspect-ratio: 1; overflow: hidden; background: #141414; margin-bottom: 16px; }
 .kk-shop-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.kk-shop-card-img-wrap img.kk-fit-contain { object-fit: contain; }
 .kk-shop-card-name { font-size: 11px; font-weight: 900; letter-spacing: 0.1em; color: #e8e6e1; margin-bottom: 8px; }
 .kk-shop-card-price { font-size: 12px; color: #999; font-family: Arial, sans-serif; margin-bottom: 14px; }
 .kk-shop-card-select {
@@ -243,10 +244,10 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
   </div>
 
   <div class="kk-shop-card">
-    <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/891BC58B-1267-4CD0-BF43-E6F74781E297.png" alt="Kush Kisses full set" loading="lazy" /></div>
+    <div class="kk-shop-card-img-wrap"><img id="kk-set-image" src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/891BC58B-1267-4CD0-BF43-E6F74781E297.png" alt="Kush Kisses full set" loading="lazy" /></div>
     <p class="kk-shop-card-name">KUSH KISSES SET</p>
     <p class="kk-shop-card-price">$75.00</p>
-    <select class="kk-shop-card-select" data-variant-for="kush-kisses-set">
+    <select class="kk-shop-card-select" data-variant-for="kush-kisses-set" id="kk-set-size-select">
       <option value="xs">Size XS</option>
       <option value="s">Size S</option>
       <option value="m">Size M</option>
@@ -255,6 +256,28 @@ body { font-family: 'Arial Black', Arial, sans-serif; background: #0a0a0a; }
     </select>
     <button class="kk-add-to-cart-btn" data-id="kush-kisses-set">ADD TO CART</button>
   </div>
+
+  <script>
+  (function () {
+    var KK_SET_IMAGES = {
+      xs: "https://cdn.shopify.com/s/files/1/0981/6752/1643/files/891BC58B-1267-4CD0-BF43-E6F74781E297.png",
+      s: "/images/kk-set/kk-set-s.jpg",
+      m: "/images/kk-set/kk-set-m.jpg",
+      l: "/images/kk-set/kk-set-l.jpg",
+      xl: "/images/kk-set/kk-set-xl.jpg",
+    };
+    document.addEventListener("DOMContentLoaded", function () {
+      var select = document.getElementById("kk-set-size-select");
+      var img = document.getElementById("kk-set-image");
+      if (!select || !img) return;
+      img.classList.add("kk-fit-contain");
+      select.addEventListener("change", function () {
+        var url = KK_SET_IMAGES[select.value];
+        if (url) img.src = url;
+      });
+    });
+  })();
+  </script>
 
   <div class="kk-shop-card">
     <div class="kk-shop-card-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0981/6752/1643/files/09E3D970-4AB8-4903-8797-48E93BA354A8.png" alt="Latte lip gloss" loading="lazy" /></div>
